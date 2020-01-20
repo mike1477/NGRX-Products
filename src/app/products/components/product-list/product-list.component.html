@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-8 mt-4">
+        <h4>Products</h4>
+        <div class="text-right">
+            <button type="button"
+                    class="btn btn-success"
+                    [routerLink]="['/product/add']">Add New Product <i class="fas fa-plus"></i></button>
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-4 col-md-6 mt-3"
+                 *ngFor="let product of products">
+                <div class="card">
+                    <img src="{{product.imageUrl}}"
+                         class="card-img-top"
+                         alt="Product Image">
+                    <div class="card-body">
+                        <h6 class="card-title">{{product.name}}</h6>
+                        <p class="card-text">Price : ${{product.price}}</p>
+                        <p class="card-text">Quantity : {{product.quantity}}</p>
+                    </div>
+                    <div class="text-center mb-1">
+                        <div class="btn-group"
+                             role="group"
+                             aria-label="Basic example">
+                            <button type="button"
+                                    class="btn btn-info"
+                                    [routerLink]="['/product/get', product.id]"><i class="fas fa-search"></i></button>
+                            <button type="button"
+                                    class="btn btn-warning"
+                                    [routerLink]="['/product/edit', product.id]"><i class="fas fa-edit"></i></button>
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    (click)="deleteProduct(product.id)"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
