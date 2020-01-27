@@ -28,20 +28,6 @@ export class ProductListComponent implements OnInit {
   }
 
   loadProducts() {
-    const productsObserver = {
-      next: products => {
-        this.store.dispatch(
-          fromActions.loadProductsSuccess({ products: products })
-        );
-        //this.products = products;
-      },
-      error: err => {
-        this.store.dispatch(fromActions.loadProductsFailure({ error: err }));
-        console.error(err);
-      }
-    };
-
-    this.productService.getProducts().subscribe(productsObserver);
     this.products$ = this.store.pipe(select(selectProducts));
   }
 

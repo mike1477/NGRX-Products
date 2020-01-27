@@ -10,6 +10,8 @@ import { ProductEditComponent } from "./components/product-edit/product-edit.com
 import { ProductListComponent } from "./components/product-list/product-list.component";
 import { StoreModule } from "@ngrx/store";
 import * as fromProductState from "./store";
+import { EffectsModule } from "@ngrx/effects";
+import { ProductEffects } from "./store/product.effects";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import * as fromProductState from "./store";
       fromProductState.productStateFeatureKey,
       fromProductState.reducers,
       { metaReducers: fromProductState.metaReducers }
-    )
+    ),
+    EffectsModule.forFeature([ProductEffects])
   ],
   providers: [ProductService],
   exports: [
