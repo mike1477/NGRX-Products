@@ -8,6 +8,10 @@ import { ProductComponent } from "./components/product/product.component";
 import { ProductAddComponent } from "./components/product-add/product-add.component";
 import { ProductEditComponent } from "./components/product-edit/product-edit.component";
 import { ProductListComponent } from "./components/product-list/product-list.component";
+import { StoreModule } from "@ngrx/store";
+import * as fromProduct from "./store/product.reducer";
+import { EffectsModule } from '@ngrx/effects';
+import { ProductEffects } from './store/product.effects';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,13 @@ import { ProductListComponent } from "./components/product-list/product-list.com
     ProductEditComponent,
     ProductListComponent
   ],
-  imports: [CommonModule, ProductsRoutingModule, FormsModule],
+  imports: [
+    CommonModule,
+    ProductsRoutingModule,
+    FormsModule,
+    StoreModule.forFeature(fromProduct.productsFeatureKey, fromProduct.reducer),
+    EffectsModule.forFeature([ProductEffects])
+  ],
   providers: [ProductService],
   exports: [
     ProductComponent,
