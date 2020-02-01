@@ -7,24 +7,29 @@ export const productsFeatureKey = "products";
 
 export interface ProductState extends EntityState<Product> {
   // additional entities state properties
+  error: any;
 }
 
 export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>();
 
 export const initialState: ProductState = adapter.getInitialState({
   // additional entity state properties
+  error: undefined
 });
 
 const productReducer = createReducer(
   initialState,
-  on(ProductActions.addProduct, (state, action) =>
+  on(ProductActions.addProductSuccess, (state, action) =>
     adapter.addOne(action.product, state)
   ),
+  on(ProductActions.addProductFailure, (state, action) => {
+    return {
+      ...state,
+      error: action.error
+    };
+  }),
   on(ProductActions.upsertProduct, (state, action) =>
     adapter.upsertOne(action.product, state)
-  ),
-  on(ProductActions.addProducts, (state, action) =>
-    adapter.addMany(action.products, state)
   ),
   on(ProductActions.upsertProducts, (state, action) =>
     adapter.upsertMany(action.products, state)

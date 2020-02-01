@@ -12,8 +12,8 @@ export class ProductService {
 
   baseUrl: string = "http://localhost:3000/products/";
 
-  createProduct(model: Product) {
-    return this.http.post(this.baseUrl, model);
+  createProduct(model: Product): Observable<Product> {
+    return this.http.post<Product>(this.baseUrl, model);
   }
 
   getProducts(): Observable<Product[]> {

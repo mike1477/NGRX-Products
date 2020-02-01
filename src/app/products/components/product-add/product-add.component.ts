@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { ProductService } from "../../services/product.service";
 import { Router } from "@angular/router";
+import { ProductState } from "../../store/product.reducer";
+import { Store } from "@ngrx/store";
+import { addProduct } from "../../store/product.actions";
 
 @Component({
   selector: "app-product-add",
@@ -9,18 +12,23 @@ import { Router } from "@angular/router";
   styleUrls: ["./product-add.component.scss"]
 })
 export class ProductAddComponent implements OnInit {
-  constructor(private productService: ProductService, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private store: Store<ProductState>
+  ) {}
 
   ngOnInit() {}
 
   onSubmit(f: NgForm) {
-    const productObserver = {
-      next: product => (
-        this.router.navigate(["/product/list"]), console.log("success")
-      ),
-      error: err => console.error(err)
-    };
+    this.store.dispatch(addProduct({ product: f.value }));
 
-    this.productService.createProduct(f.value).subscribe(productObserver);
+    // const productObserver = {
+    //   next: product => (
+    //     this.router.navigate(["/product/list"]), console.log("success")
+    //   ),
+    //   error: err => console.error(err)
+    // };
+
+    // this.productService.createProduct(f.value).subscribe(productObserver);
   }
 }

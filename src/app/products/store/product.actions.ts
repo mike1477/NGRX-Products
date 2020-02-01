@@ -7,20 +7,25 @@ export const loadProducts = createAction(
   "[Product/API] Load Products",
   props<{ products: Product[] }>()
 );
-
+// Add Product
 export const addProduct = createAction(
-  "[Product/API] Add Product",
+  "[Product Add Component] Add Product",
   props<{ product: Product }>()
+);
+
+export const addProductSuccess = createAction(
+  "[Product Add Effect] Add Product Success",
+  props<{ product: Product }>()
+);
+
+export const addProductFailure = createAction(
+  "[Product Add Effect] Add Product Failure",
+  props<{ error: any }>()
 );
 
 export const upsertProduct = createAction(
   "[Product/API] Upsert Product",
   props<{ product: Product }>()
-);
-
-export const addProducts = createAction(
-  "[Product/API] Add Products",
-  props<{ products: Product[] }>()
 );
 
 export const upsertProducts = createAction(
