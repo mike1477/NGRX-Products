@@ -4,6 +4,10 @@ import { switchMap, map } from "rxjs/operators";
 import { ProductService } from "../../services/product.service";
 import { Observable } from "rxjs";
 import { Product } from "../../models/product";
+import { Store, select } from "@ngrx/store";
+import { ProductState } from "../../store/product.reducer";
+import { loadProduct } from "../../store/product.actions";
+import { selectedProduct } from "../../store/product.selectors";
 
 @Component({
   selector: "app-product",
@@ -16,13 +20,16 @@ export class ProductComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: ProductService
+    private service: ProductService,
+    private store: Store<ProductState>
   ) {}
 
   ngOnInit() {
-    this.product$ = this.service.getProduct(
-      this.route.snapshot.paramMap.get("id")
+    this.store.dispatch(
+      loadProduct({ id: this.route.snapshot.paramMap.get("id") })
     );
+
+    this.product$ = this.store.pipe(select(selectedProduct));
   }
 
   deleteProduct(id: number) {

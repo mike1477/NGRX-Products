@@ -8,6 +8,35 @@ import { Router } from "@angular/router";
 
 @Injectable()
 export class ProductEffects {
+  loadProducts$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromProductActions.loadProducts),
+      mergeMap(action =>
+        this.productService.getProducts().pipe(
+          map(products => fromProductActions.loadProductsSuccess({ products })),
+          catchError(error =>
+            of(fromProductActions.loadProductsFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
+  loadProduct$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromProductActions.loadProduct),
+      mergeMap(action =>
+        this.productService.getProduct(action.id).pipe(
+          map(product =>
+            fromProductActions.loadProductSuccess({ selectedProduct: product })
+          ),
+          catchError(error =>
+            of(fromProductActions.loadProductFailure({ error }))
+          )
+        )
+      )
+    )
+  );
   createProduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromProductActions.addProduct),
