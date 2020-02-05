@@ -51,25 +51,15 @@ const productReducer = createReducer(
       error: action.error
     };
   }),
-  on(ProductActions.upsertProduct, (state, action) =>
-    adapter.upsertOne(action.product, state)
-  ),
-  on(ProductActions.upsertProducts, (state, action) =>
-    adapter.upsertMany(action.products, state)
-  ),
   on(ProductActions.updateProduct, (state, action) =>
     adapter.updateOne(action.product, state)
-  ),
-  on(ProductActions.updateProducts, (state, action) =>
-    adapter.updateMany(action.products, state)
   ),
   on(ProductActions.deleteProduct, (state, action) =>
     adapter.removeOne(action.id, state)
   ),
   on(ProductActions.deleteProducts, (state, action) =>
     adapter.removeMany(action.ids, state)
-  ),
-  on(ProductActions.clearProducts, state => adapter.removeAll(state))
+  )
 );
 
 export function reducer(state: ProductState | undefined, action: Action) {

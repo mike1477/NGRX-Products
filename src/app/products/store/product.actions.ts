@@ -17,7 +17,7 @@ export const loadProductsFailure = createAction(
 );
 // Load Product
 export const loadProduct = createAction(
-  "[Product Component] Load Product",
+  "[Product Components] Load Product",
   props<{ id: string }>()
 );
 export const loadProductSuccess = createAction(
@@ -44,24 +44,10 @@ export const addProductFailure = createAction(
   props<{ error: any }>()
 );
 
-export const upsertProduct = createAction(
-  "[Product/API] Upsert Product",
-  props<{ product: Product }>()
-);
-
-export const upsertProducts = createAction(
-  "[Product/API] Upsert Products",
-  props<{ products: Product[] }>()
-);
-
+// Edit Component
 export const updateProduct = createAction(
-  "[Product/API] Update Product",
+  "[Product Edit Component] Update Product",
   props<{ product: Update<Product> }>()
-);
-
-export const updateProducts = createAction(
-  "[Product/API] Update Products",
-  props<{ products: Update<Product>[] }>()
 );
 
 export const deleteProduct = createAction(
@@ -73,5 +59,3 @@ export const deleteProducts = createAction(
   "[Product/API] Delete Products",
   props<{ ids: string[] }>()
 );
-
-export const clearProducts = createAction("[Product/API] Clear Products");
