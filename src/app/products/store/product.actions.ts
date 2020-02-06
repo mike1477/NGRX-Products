@@ -49,13 +49,19 @@ export const updateProduct = createAction(
   "[Product Edit Component] Update Product",
   props<{ product: Update<Product> }>()
 );
+//Delete Product
 
 export const deleteProduct = createAction(
-  "[Product/API] Delete Product",
+  "[Product Components] Delete Product",
   props<{ id: string }>()
 );
 
-export const deleteProducts = createAction(
-  "[Product/API] Delete Products",
-  props<{ ids: string[] }>()
+export const deleteProductSuccess = createAction(
+  "[Product Delete Effect] Delete Product Success",
+  props<{ id: string }>()
+);
+
+export const deleteProductFailure = createAction(
+  "[Product Delete Effect] Delete Product Failure",
+  props<{ error: any }>()
 );

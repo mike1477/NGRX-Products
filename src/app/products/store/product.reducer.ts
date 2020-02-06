@@ -54,12 +54,15 @@ const productReducer = createReducer(
   on(ProductActions.updateProduct, (state, action) =>
     adapter.updateOne(action.product, state)
   ),
-  on(ProductActions.deleteProduct, (state, action) =>
+  on(ProductActions.deleteProductSuccess, (state, action) =>
     adapter.removeOne(action.id, state)
   ),
-  on(ProductActions.deleteProducts, (state, action) =>
-    adapter.removeMany(action.ids, state)
-  )
+  on(ProductActions.deleteProductFailure, (state, action) => {
+    return {
+      ...state,
+      error: action.error
+    };
+  })
 );
 
 export function reducer(state: ProductState | undefined, action: Action) {

@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 import { Product } from "../../models/product";
 import { Store, select } from "@ngrx/store";
 import { ProductState } from "../../store/product.reducer";
-import { loadProduct } from "../../store/product.actions";
+import * as fromActions from "../../store/product.actions";
 import { selectedProduct } from "../../store/product.selectors";
 
 @Component({
@@ -26,20 +26,13 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(
-      loadProduct({ id: this.route.snapshot.paramMap.get("id") })
+      fromActions.loadProduct({ id: this.route.snapshot.paramMap.get("id") })
     );
 
     this.product$ = this.store.pipe(select(selectedProduct));
   }
 
-  deleteProduct(id: number) {
-    const productsObserver = {
-      next: () => {
-        console.log("Product Deleted");
-        this.router.navigate(["/product/list"]);
-      },
-      error: err => console.error(err)
-    };
-    this.service.deleteProduct(id).subscribe(productsObserver);
+  deleteProduct(id: string) {
+    this.store.dispatch(fromActions.deleteProduct({ id }));
   }
 }
