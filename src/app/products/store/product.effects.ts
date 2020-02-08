@@ -78,7 +78,8 @@ export class ProductEffects {
             of(fromProductActions.deleteProductFailure({ error }))
           )
         )
-      )
+      ),
+      tap(() => this.router.navigate(["/product/list"])) // Not in Video 12
     )
   );
 

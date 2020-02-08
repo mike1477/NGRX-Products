@@ -32,9 +32,6 @@ export class ProductEditComponent implements OnInit {
       .subscribe(
         product => (this.model = Object.assign(new Product(), product))
       );
-    // this.service
-    //   .getProduct(this.route.snapshot.paramMap.get("id"))
-    //   .subscribe(product => (this.model = product));
   }
 
   onSubmit() {
@@ -44,13 +41,5 @@ export class ProductEditComponent implements OnInit {
     };
 
     this.store.dispatch(updateProduct({ product: update }));
-    // const productObserver = {
-    //   next: product => {
-    //     this.router.navigate(["/product/list"]), console.log("success");
-    //   },
-    //   error: err => console.error(err)
-    // };
-    // console.log(this.model);
-    // this.service.editProduct(this.model).subscribe(productObserver);
   }
 }
